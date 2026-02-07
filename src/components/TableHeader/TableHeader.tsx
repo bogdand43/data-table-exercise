@@ -10,6 +10,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({ columnNames }) => {
   return (
     <thead>
       <tr className={styles.TableHeader}>
+        <th className={styles.TableHeaderCheckboxCell}></th>
         {columnNames.map(columnName => (
           <th key={columnName} className={styles.TableHeaderCell}>{capitalize(columnName)}</th>
         ))}

@@ -6,3 +6,5 @@ export interface Operation {
   path: string;
   status: Status;
 }
+
+export type CheckboxState = 'checked' | 'unchecked' | 'indeterminate';

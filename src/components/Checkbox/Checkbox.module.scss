@@ -1,0 +1,88 @@
+.CheckboxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+
+  &:has(.checkbox:disabled) {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.Checkbox {
+  position: relative;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.Checkmark {
+  position: relative;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #747474;
+  border-radius: 3px;
+  background-color: #ffffff;
+  transition: all 0.2s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 4px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}
+// Hover state for enabled checkbox
+.CheckboxContainer:hover .Checkbox:not(:disabled) ~ .Checkmark {
+  border-color: #2563eb;
+}
+
+// Checked state
+.Checkbox:checked ~ .Checkmark {
+  background-color: #2563eb;
+  border-color: #2563eb;
+
+  &::after {
+    display: block;
+  }
+}
+
+// "Indeterminate" state
+.Checkbox:indeterminate ~ .Checkmark {
+  background-color: #2563eb;
+  border-color: #2563eb;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 3px;
+    top: 7px;
+    width: 8px;
+    height: 2px;
+    border: none;
+    background-color: #ffffff;
+    transform: rotate(0deg);
+  }
+}
+
+// Focus state
+.Checkbox:focus ~ .Checkmark {
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
