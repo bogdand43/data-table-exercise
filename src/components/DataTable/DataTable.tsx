@@ -1,13 +1,11 @@
 import type { Operation } from '../../types/Operation';
+import type { DataTableProps } from './DataTable.types';
 import React from 'react';
-import { mockData } from '../../data/mock';
-import capitalize from '../../utils/capitalize';
 
-interface DataTableProps {
-  data?: Operation[];
-  title?: string;
-  className?: string;
-}
+import { mockData } from '../../data/mock';
+
+import TableHeader from '../TableHeader/TableHeader';
+import styles from './DataTable.module.scss';
 
 const DataTable: React.FC<DataTableProps> = ({
   data = mockData,
@@ -21,19 +19,12 @@ const DataTable: React.FC<DataTableProps> = ({
   };
 
   const columnNames = getColumnNames(data);
-  const tableClassName = `DataTable ${className}`;
 
   return (
-    <div className="DataTableContainer">
+    <div className={`${styles.DataTableContainer} ${className}`}>
       <h3>{title}</h3>
-      <table className={tableClassName}>
-        <thead>
-          <tr className="DataTableHeader">
-            {columnNames.map(columnName => (
-              <th key={columnName} className="DataTableHeaderCell">{capitalize(columnName)}</th>
-            ))}
-          </tr>
-        </thead>
+      <table className={styles.DataTable}>
+        <TableHeader columnNames={columnNames} />
         <tbody>
           {data.map((operation: Operation, idx: number) => (
             <tr key={`${operation.name}-${idx}`}>
