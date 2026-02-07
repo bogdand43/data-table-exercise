@@ -1,0 +1,19 @@
+.StatusContainer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.StatusDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #7cd335;
+  margin-left: -22px;
+}
+
+.StatusText {
+  color: #373737;
+  line-height: 1.5;
+  font-size: inherit;
+}

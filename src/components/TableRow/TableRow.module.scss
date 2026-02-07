@@ -19,20 +19,5 @@
   &.Cell-Status {
     text-transform: capitalize;
     padding: 12px 16px 12px 24px;
-    &[data-value='available'] {
-      position: relative;
-      &:before {
-        content: '';
-        position: absolute;
-        display: block;
-        width: 14px;
-        height: 14px;
-        background-color: #7cd335;
-        border-radius: 50%;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-    }
   }
 }

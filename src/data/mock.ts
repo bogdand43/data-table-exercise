@@ -1,4 +1,4 @@
-import type { Operation } from '../types/Operation';
+import type { Operation } from '../types';
 
 export const mockData: Operation[] = [
   {

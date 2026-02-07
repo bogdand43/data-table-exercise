@@ -1,6 +1,7 @@
 import type React from 'react';
 import type { TableRowProps } from './TableRow.types';
 import capitalize from '../../utils/capitalize';
+import StatusIndicator from '../StatusIndicator/StatusIndicator';
 import styles from './TableRow.module.scss';
 
 const TableRow: React.FC<TableRowProps> = ({ row, columnNames }) => {
@@ -16,7 +17,11 @@ const TableRow: React.FC<TableRowProps> = ({ row, columnNames }) => {
             data-column={columnName}
             data-value={cellValue}
           >
-            {cellValue}
+            {
+              columnName === 'status'
+                ? <StatusIndicator status={cellValue} />
+                : cellValue
+            }
           </td>
         );
       })}

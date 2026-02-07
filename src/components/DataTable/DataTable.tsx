@@ -1,4 +1,4 @@
-import type { Operation } from '../../types/Operation';
+import type { Operation } from '../../types';
 import type { DataTableProps } from './DataTable.types';
 import React from 'react';
 
