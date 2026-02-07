@@ -5,6 +5,7 @@ import React from 'react';
 import { mockData } from '../../data/mock';
 
 import TableHeader from '../TableHeader/TableHeader';
+import TableRow from '../TableRow/TableRow';
 import styles from './DataTable.module.scss';
 
 const DataTable: React.FC<DataTableProps> = ({
@@ -27,11 +28,11 @@ const DataTable: React.FC<DataTableProps> = ({
         <TableHeader columnNames={columnNames} />
         <tbody>
           {data.map((operation: Operation, idx: number) => (
-            <tr key={`${operation.name}-${idx}`}>
-              {columnNames.map((columnName: string) => (
-                <td key={`operation-${operation.name}-${columnName}`}>{operation[columnName]}</td>
-              ))}
-            </tr>
+            <TableRow
+              key={`operation-${operation.name}-${idx}`}
+              row={operation}
+              columnNames={columnNames}
+            />
           ))}
         </tbody>
       </table>
