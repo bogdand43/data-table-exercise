@@ -1,10 +1,11 @@
+import DataTable from './components/DataTable/DataTable';
 import './App.css';
 
 function App() {
   return (
-    <>
-      <h2>Data table</h2>
-    </>
+    <main>
+      <DataTable />
+    </main>
   );
 }
 

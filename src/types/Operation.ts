@@ -1,6 +1,6 @@
 export interface Operation {
-  name:   string;
+  name: string;
   device: string;
-  path:   string;
+  path: string;
   status: 'available' | 'scheduled';
 }
