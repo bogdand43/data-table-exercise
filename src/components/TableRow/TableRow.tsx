@@ -5,17 +5,17 @@ import Checkbox from '../Checkbox/Checkbox';
 import StatusIndicator from '../StatusIndicator/StatusIndicator';
 import styles from './TableRow.module.scss';
 
-const TableRow: React.FC<TableRowProps> = ({ row, columnNames }) => {
+const TableRow: React.FC<TableRowProps> = ({ row, columnNames, isSelected, isSelectable, onSelectionChange }) => {
   const handleCheckboxChange = (checked: boolean) => {
-    console.log('Checkbox changed for row:', row.name, 'Checked:', checked);
+    onSelectionChange(row.id, checked);
   };
   return (
     <tr className={styles.TableRow}>
       <td className={styles.CheckboxCell}>
         <Checkbox
-          checked={false}
+          checked={isSelected}
           onChange={handleCheckboxChange}
-          disabled={false}
+          disabled={!isSelectable}
         />
       </td>
       {columnNames.map((columnName: string) => {

@@ -53,8 +53,8 @@
 
 // Checked state
 .Checkbox:checked ~ .Checkmark {
-  background-color: #2563eb;
-  border-color: #2563eb;
+  background-color: #4d92e2;
+  border-color: #4d92e2;
 
   &::after {
     display: block;
@@ -63,8 +63,8 @@
 
 // "Indeterminate" state
 .Checkbox:indeterminate ~ .Checkmark {
-  background-color: #2563eb;
-  border-color: #2563eb;
+  background-color: #4d92e2;
+  border-color: #4d92e2;
 
   &::after {
     content: '';
@@ -83,6 +83,6 @@
 // Focus state
 .Checkbox:focus ~ .Checkmark {
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
-  outline: 2px solid #2563eb;
+  outline: 2px solid #4d92e2;
   outline-offset: 2px;
 }
