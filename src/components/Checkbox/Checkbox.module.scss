@@ -1,7 +1,7 @@
-.CheckboxContainer {
+.CheckboxLabel {
   display: flex;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
   position: relative;
   cursor: pointer;
   user-select: none;
@@ -37,8 +37,8 @@
     content: '';
     position: absolute;
     display: none;
-    left: 4px;
-    top: 2px;
+    left: 6px;
+    top: 3px;
     width: 4px;
     height: 8px;
     border: solid #ffffff;
@@ -70,9 +70,9 @@
     content: '';
     display: block;
     position: absolute;
-    left: 3px;
-    top: 7px;
-    width: 8px;
+    left: 4px;
+    top: 8px;
+    width: 10px;
     height: 2px;
     border: none;
     background-color: #ffffff;
@@ -82,7 +82,6 @@
 
 // Focus state
 .Checkbox:focus ~ .Checkmark {
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
   outline: 2px solid #4d92e2;
   outline-offset: 2px;
 }

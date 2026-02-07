@@ -3,7 +3,7 @@ import type { DataTableProps } from './DataTable.types';
 import React, { useCallback, useMemo, useState } from 'react';
 import { mockData } from '../../data/mock';
 import { CHECKBOX_STATE } from '../../utils/constants';
-import Checkbox from '../Checkbox/Checkbox';
+import ActionBar from '../ActionBar/ActionBar';
 import TableHeader from '../TableHeader/TableHeader';
 import TableRow from '../TableRow/TableRow';
 import styles from './DataTable.module.scss';
@@ -34,6 +34,20 @@ const DataTable: React.FC<DataTableProps> = ({
     return CHECKBOX_STATE.INDETERMINATE;
   }, [selectedRows, availableOperations, availableRowCount]);
 
+  // individual row selection handler
+  const handleRowSelection = useCallback(({ name: rowName }: Operation, selected: boolean) => {
+    setSelectedRows((prevSelected) => {
+      let next = [...prevSelected];
+      if (selected && !prevSelected.includes(rowName)) {
+        next.push(rowName);
+      }
+      else {
+        next = next.filter(name => name !== rowName);
+      }
+      return next;
+    });
+  }, []);
+
   const handleSelectAll = useCallback(() => {
     if (selectAllState === CHECKBOX_STATE.CHECKED) {
       setSelectedRows([]);
@@ -43,32 +57,36 @@ const DataTable: React.FC<DataTableProps> = ({
     }
   }, [availableOperations, selectAllState]);
 
+  const handleDownload = useCallback(() => {
+    const selectedItems = data.filter(row => selectedRows.includes(row.name));
+
+    if (selectedItems.length === 0) {
+      // eslint-disable-next-line no-alert
+      alert('No items selected for download');
+      return;
+    }
+
+    const downloadInfo = selectedItems
+      .map(item => `Device: ${item.device}\nPath: ${item.path}`)
+      .join('\n\n');
+
+    // eslint-disable-next-line no-alert
+    alert(`Downloading ${selectedItems.length} item(s):\n\n${downloadInfo}`);
+  }, [data, selectedRows]);
+
   const selectedCount = selectedRows.length;
   const hasSelection = selectedCount > 0;
 
   return (
     <div className={`${styles.DataTableContainer} ${className}`}>
       <h3>{title}</h3>
-      <div className="DataTableActionBar">
-        <div>
-          <Checkbox
-            checked={selectAllState === 'checked'}
-            indeterminate={selectAllState === 'indeterminate'}
-            onChange={handleSelectAll}
-          />
-          Selected
-          {' '}
-          {selectedCount}
-        </div>
-        <div>
-          <button
-            className="DownloadButton"
-            disabled={!hasSelection}
-          >
-            Download selected
-          </button>
-        </div>
-      </div>
+      <ActionBar
+        onSelectAll={handleSelectAll}
+        onDownload={handleDownload}
+        selectAllState={selectAllState}
+        selectedCount={selectedCount}
+        hasSelection={hasSelection}
+      />
       <table className={styles.DataTable}>
         <TableHeader columnNames={columnNames} />
         <tbody>
@@ -79,7 +97,7 @@ const DataTable: React.FC<DataTableProps> = ({
               isSelected={selectedRows.includes(operation.name)}
               isSelectable={availableOperations.includes(operation.name)}
               columnNames={columnNames}
-              onSelectionChange={() => {}}
+              onSelectionChange={handleRowSelection}
             />
           ))}
         </tbody>

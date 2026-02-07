@@ -7,7 +7,7 @@ import styles from './TableRow.module.scss';
 
 const TableRow: React.FC<TableRowProps> = ({ row, columnNames, isSelected, isSelectable, onSelectionChange }) => {
   const handleCheckboxChange = (checked: boolean) => {
-    onSelectionChange(row.id, checked);
+    onSelectionChange(row, checked);
   };
   return (
     <tr className={styles.TableRow}>

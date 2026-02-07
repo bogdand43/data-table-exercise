@@ -1,5 +1,5 @@
 export interface TableRowProps {
-  row: Record<string, any>;
+  row: any;
   columnNames: string[];
   isSelected: boolean;
   isSelectable: boolean;

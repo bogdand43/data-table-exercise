@@ -1,5 +1,6 @@
 import type { CheckboxProps } from './Checkbox.types';
 import React, { useEffect } from 'react';
+import styles from './Checkbox.module.scss';
 
 const Checkbox: React.FC<CheckboxProps> = ({
   checked,
@@ -23,14 +24,16 @@ const Checkbox: React.FC<CheckboxProps> = ({
     }
   };
   return (
-    <label className={`CheckboxLabel ${className || ''}`}>
+    <label className={`${styles.CheckboxLabel} ${className || ''}`}>
       <input
         ref={checkboxRef}
         type="checkbox"
         checked={checked}
         onChange={handleChange}
         disabled={disabled}
+        className={styles.Checkbox}
       />
+      <span className={styles.Checkmark} />
     </label>
   );
 };
