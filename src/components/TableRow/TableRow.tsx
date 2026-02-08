@@ -27,7 +27,7 @@ const TableRow: React.FC<TableRowProps> = ({ row, columnNames, isSelected, isSel
       tabIndex={isSelectable ? 0 : -1}
       onKeyDown={handleKeyDown}
     >
-      <td className={styles.CheckboxCell}>
+      <td className={styles.CheckboxCell} data-label="Select">
         <Checkbox
           checked={isSelected}
           onChange={handleCheckboxChange}

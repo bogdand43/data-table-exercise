@@ -2,6 +2,10 @@
   background-color: #f9fafb;
   padding: 8px 12px;
   border-bottom: 2px solid #e5e7eb;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .TableHeaderCell {
