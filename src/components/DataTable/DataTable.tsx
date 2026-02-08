@@ -1,8 +1,8 @@
-import type { Operation } from '../../types';
+import type { CheckboxState, Operation } from '../../types';
 import type { DataTableProps } from './DataTable.types';
 import React, { useCallback, useMemo, useState } from 'react';
 import { mockData } from '../../data/mock';
-import { CHECKBOX_STATE } from '../../utils/constants';
+import { CHECKBOX_STATE, OPERATION_STATUS } from '../../utils/constants';
 import ActionBar from '../ActionBar/ActionBar';
 import TableHeader from '../TableHeader/TableHeader';
 import TableRow from '../TableRow/TableRow';
@@ -13,20 +13,19 @@ const DataTable: React.FC<DataTableProps> = ({
   title = 'Operations',
   className = '',
 }) => {
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const columnNames = Object.keys(data[0] || {});
 
   // Only those that have a status of "available" are currently able to be downloaded.
-  const availableRows = useMemo(() => data.filter((item: Operation) => item?.status === 'available'), [data]);
+  const availableRows = useMemo(() => data.filter((item: Operation) => item?.status === OPERATION_STATUS.AVAILABLE), [data]);
   const availableRowCount = availableRows.length;
-
   const availableOperations = useMemo(
-    () => availableRows.map((item: Operation) => item.name),
+    () => new Set(availableRows.map((item: Operation) => item.name)),
     [availableRows],
   );
 
-  const selectAllState = useMemo(() => {
-    const selectedAvailableCount = selectedRows.filter(rowName => availableOperations.includes(rowName)).length;
+  const selectAllState: CheckboxState = useMemo(() => {
+    const selectedAvailableCount = Array.from(selectedRows).filter(rowName => availableOperations.has(rowName)).length;
     if (selectedAvailableCount === 0)
       return CHECKBOX_STATE.UNCHECKED;
     if (selectedAvailableCount === availableRowCount)
@@ -37,12 +36,12 @@ const DataTable: React.FC<DataTableProps> = ({
   // individual row selection handler
   const handleRowSelection = useCallback(({ name: rowName }: Operation, selected: boolean) => {
     setSelectedRows((prevSelected) => {
-      let next = [...prevSelected];
-      if (selected && !prevSelected.includes(rowName)) {
-        next.push(rowName);
+      const next = new Set(prevSelected);
+      if (selected) {
+        next.add(rowName);
       }
       else {
-        next = next.filter(name => name !== rowName);
+        next.delete(rowName);
       }
       return next;
     });
@@ -50,15 +49,15 @@ const DataTable: React.FC<DataTableProps> = ({
 
   const handleSelectAll = useCallback(() => {
     if (selectAllState === CHECKBOX_STATE.CHECKED) {
-      setSelectedRows([]);
+      setSelectedRows(new Set());
     }
     else {
-      setSelectedRows(availableRows.map(row => row.name));
+      setSelectedRows(new Set(availableOperations));
     }
   }, [availableOperations, selectAllState]);
 
   const handleDownload = useCallback(() => {
-    const selectedItems = data.filter(row => selectedRows.includes(row.name));
+    const selectedItems = data.filter((item: Operation) => selectedRows.has(item.name));
 
     if (selectedItems.length === 0) {
       // eslint-disable-next-line no-alert
@@ -67,14 +66,14 @@ const DataTable: React.FC<DataTableProps> = ({
     }
 
     const downloadInfo = selectedItems
-      .map(item => `Device: ${item.device}\nPath: ${item.path}`)
+      .map((item: Operation) => `Device: ${item.device}\nPath: ${item.path}`)
       .join('\n\n');
 
     // eslint-disable-next-line no-alert
     alert(`Downloading ${selectedItems.length} item(s):\n\n${downloadInfo}`);
   }, [data, selectedRows]);
 
-  const selectedCount = selectedRows.length;
+  const selectedCount = selectedRows.size;
   const hasSelection = selectedCount > 0;
 
   return (
@@ -94,8 +93,8 @@ const DataTable: React.FC<DataTableProps> = ({
             <TableRow
               key={`operation-${operation.name}-${idx}`}
               row={operation}
-              isSelected={selectedRows.includes(operation.name)}
-              isSelectable={availableOperations.includes(operation.name)}
+              isSelected={selectedRows.has(operation.name)}
+              isSelectable={availableOperations.has(operation.name)}
               columnNames={columnNames}
               onSelectionChange={handleRowSelection}
             />
