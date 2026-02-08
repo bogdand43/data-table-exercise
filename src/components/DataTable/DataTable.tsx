@@ -87,7 +87,7 @@ const DataTable: React.FC<DataTableProps> = ({
       <table
         className={styles.DataTable}
         aria-label="Operation selection table"
-        aria-row-count={data.length}
+        aria-rowcount={data.length}
         role="grid"
       >
         <TableHeader columnNames={columnNames} />
