@@ -3,5 +3,5 @@ export interface TableRowProps {
   columnNames: string[];
   isSelected: boolean;
   isSelectable: boolean;
-  onSelectionChange: (id: string, selected: boolean) => void;
+  onSelectionChange: (row: any, selected: boolean) => void;
 }

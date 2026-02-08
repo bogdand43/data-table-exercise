@@ -10,7 +10,6 @@ import styles from './DataTable.module.scss';
 
 const DataTable: React.FC<DataTableProps> = ({
   data = mockData,
-  title = 'Operations',
   className = '',
 }) => {
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
@@ -78,7 +77,6 @@ const DataTable: React.FC<DataTableProps> = ({
 
   return (
     <div className={`${styles.DataTableContainer} ${className}`}>
-      <h3>{title}</h3>
       <ActionBar
         onSelectAll={handleSelectAll}
         onDownload={handleDownload}
@@ -86,9 +84,14 @@ const DataTable: React.FC<DataTableProps> = ({
         selectedCount={selectedCount}
         hasSelection={hasSelection}
       />
-      <table className={styles.DataTable}>
+      <table
+        className={styles.DataTable}
+        aria-label="Operation selection table"
+        aria-row-count={data.length}
+        role="grid"
+      >
         <TableHeader columnNames={columnNames} />
-        <tbody>
+        <tbody role="presentation">
           {data.map((operation: Operation, idx: number) => (
             <TableRow
               key={`operation-${operation.name}-${idx}`}

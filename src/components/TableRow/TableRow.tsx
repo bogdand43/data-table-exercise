@@ -9,13 +9,30 @@ const TableRow: React.FC<TableRowProps> = ({ row, columnNames, isSelected, isSel
   const handleCheckboxChange = (checked: boolean) => {
     onSelectionChange(row, checked);
   };
+
+  const handleKeyDown = (evt: React.KeyboardEvent<HTMLTableRowElement>) => {
+    if (evt.key === 'Enter' || evt.key === ' ') {
+      evt.preventDefault();
+      onSelectionChange(row, !isSelected);
+    }
+  };
+
+  const rowClassName = `${styles.TableRow} ${isSelected ? styles.SelectedRow : ''}`;
   return (
-    <tr className={styles.TableRow}>
+    <tr
+      className={rowClassName}
+      data-row-name={row.name}
+      role="row"
+      aria-selected={isSelected}
+      tabIndex={isSelectable ? 0 : -1}
+      onKeyDown={handleKeyDown}
+    >
       <td className={styles.CheckboxCell}>
         <Checkbox
           checked={isSelected}
           onChange={handleCheckboxChange}
           disabled={!isSelectable}
+          ariaLabel={`Select row for operation ${row.name}`}
         />
       </td>
       {columnNames.map((columnName: string) => {

@@ -8,12 +8,15 @@
 
 .SelectAllContainer {
   display: flex;
+  flex: 0 0 auto;
+  min-width: 10em;
   align-items: center;
   font-size: 24px;
   padding: 12px 16px;
   gap: 12px;
   vertical-align: middle;
 }
+
 .SelectedCount {
   font-size: inherit;
   color: #000000;
@@ -22,6 +25,8 @@
 .DownloadButtonContainer {
   border: 0;
   background: none;
+  flex: 1;
+  min-width: 0;
 
   button {
     background: none;
@@ -52,8 +57,8 @@
     }
 
     img {
-      width: 30px;
-      height: 30px;
+      width: 24px;
+      height: 24px;
     }
   }
 }

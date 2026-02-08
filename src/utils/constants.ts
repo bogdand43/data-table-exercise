@@ -4,4 +4,9 @@ const CHECKBOX_STATE = {
   INDETERMINATE: 'indeterminate',
 } as const;
 
-export { CHECKBOX_STATE };
+const OPERATION_STATUS = {
+  AVAILABLE: 'available',
+  SCHEDULED: 'scheduled',
+};
+
+export { CHECKBOX_STATE, OPERATION_STATUS };

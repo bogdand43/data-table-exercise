@@ -8,6 +8,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   onChange,
   disabled = false,
   className = '',
+  ariaLabel = 'Select',
 }) => {
   const checkboxRef = React.useRef<HTMLInputElement>(null);
 
@@ -30,6 +31,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         type="checkbox"
         checked={checked}
         onChange={handleChange}
+        aria-label={ariaLabel}
         disabled={disabled}
         className={styles.Checkbox}
       />
