@@ -4,17 +4,30 @@ React table component with smart selection and status indicators.
 
 ## Quick Start
 
+### Prerequisites
+
+- Node.js 20+ and npm/yarn
+
 The project requires at least node version 20. I used 20.20 on my machine to avoid potential devDependency warnings related to certain eslint plugins.
 
-```bash
-# Install dependencies
-npm install
+### Installation
 
-# Run development server
-npm run dev
+```bash
+npm install
+# or
+yarn install
 ```
 
-The app will run on `http://localhost:5173` by default.
+### Running the Application
+
+```
+npm run dev
+# or
+yarn dev
+```
+
+The app will run on port `5173` by default. Open
+[http://localhost:5173](localhost:5173).
 
 ## Features
 
@@ -31,7 +44,11 @@ The app will run on `http://localhost:5173` by default.
 import { DataTable } from './components/DataTable';
 
 <DataTable data={[
-  { id: '1', name: 'file.txt', device: 'Server', path: '/path', status: 'available' }
+  { name: 'doc1.pdf', device: 'Michael', path: '/docs', status: 'available' },
+  { name: 'report.docx', device: 'Dwight', path: '/reports', status: 'scheduled' },
+  { name: 'spreadsheet.xlsx', device: 'Jim', path: '/sheets', status: 'available' },
+  { name: 'memo.txt', device: 'Pam', path: '/memos', status: 'scheduled' },
+  { name: 'budget.csv', device: 'Angela', path: '/budgets', status: 'available' },
 ]}
 />;
 ```
